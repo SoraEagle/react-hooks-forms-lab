@@ -1,9 +1,10 @@
-import React from "react";
-import { v4 as uuid } from "uuid";
+import React, {useState} from "react";
+import {v4 as uuid} from "uuid"; //What is this for?
 
-function ItemForm(props) {
-  return (
-    <form className="NewItem">
+function ItemForm(props){
+  // 
+  return(
+    <form className="NewItem" > {/*Add onItemFormSubmit*/}
       <label>
         Name:
         <input type="text" name="name" />
