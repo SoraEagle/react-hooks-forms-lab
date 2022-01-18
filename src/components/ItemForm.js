@@ -1,18 +1,18 @@
-import React, {useState} from "react";
-import {v4 as uuid} from "uuid"; //What is this for?
+import React from "react";
+import {v4 as uuid} from "uuid";
 
 function ItemForm(props){
   // 
   return(
-    <form className="NewItem" > {/*Add onItemFormSubmit*/}
+    <form className="NewItem" onSubmit={props.onItemFormSubmit} >
       <label>
         Name:
-        <input type="text" name="name" />
+        <input type="text" name="name" onChange={props.onItemName} value={props.itemName} />
       </label>
 
       <label>
         Category:
-        <select name="category">
+        <select name="category" onChange={props.onItemCategory} value={props.itemCategory} >
           <option value="Produce">Produce</option>
           <option value="Dairy">Dairy</option>
           <option value="Dessert">Dessert</option>
