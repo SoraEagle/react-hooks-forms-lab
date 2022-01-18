@@ -24,16 +24,20 @@ function ShoppingList({items}){
     // };
   }
 
+  // MUST return search results off of partial matches!!!
   const itemsToDisplay = items.filter((item) => {
-    if(selectedCategory === "All") return true;
+    if(selectedCategory === "All") return true; //The selectedCategory must is compared FIRST.
 
     return item.category === selectedCategory;
+  }).filter((item) => {
+    if(search === "") return true; //search is compared AFTER selectedCategory.
+    return item.name === search;
   });
 
   return(
     <div className="ShoppingList">
       <ItemForm onItemFormSubmit={handleItemFormSubmit} /> {/* Add the onItemFormSubmit function */}
-      <Filter onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
+      <Filter onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} search={search}/>
       <ul className="Items">
         {itemsToDisplay.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
