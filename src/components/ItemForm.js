@@ -4,7 +4,7 @@ import {v4 as uuid} from "uuid";
 function ItemForm(props){
   // 
   return(
-    <form className="NewItem" onSubmit={props.onItemFormSubmit} >
+    <form className="NewItem" onSubmit={props.onItemFormSubmit} > {/* MUST invoke props.onItemFormSubmit */}
       <label>
         Name:
         <input type="text" name="name" onChange={props.onItemName} value={props.itemName} />

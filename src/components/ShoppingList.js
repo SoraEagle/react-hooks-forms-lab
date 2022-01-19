@@ -19,31 +19,36 @@ function ShoppingList({items}){
     setSearch(event.target.value);
   }
 
-  function handleItemName(event){ //Handles newItem.itemName
+  function handleItemName(event){ //Handles newItem.itemName.
     setItemName(event.target.value);
   }
-  function handleItemCategory(event){
+  function handleItemCategory(event){ //Handles newItem.itemCategory.
     setItemCategory(event.target.value);
   }
 
-  function handleItemFormSubmit(event){
+  function handleItemFormSubmit(event){ //Not getting invoked? CURRENT Problem Area!!!
     event.preventDefault();
-
-    const newItem = { //Object
+    
+    const newItem = { //Object for creating new items.
       id: uuid(),
       name: itemName,
       category: itemCategory,
     };
-
+    
     const itemArray = ([...items, newItem]);
+    // console.log(newItem);
+    // console.log(itemArray);
     setItemList(itemArray);
     setItemName("");
     setItemCategory("");
   }
 
-  const itemsToDisplay = items.filter((item) => {
-    if(selectedCategory === "All") return true; //The selectedCategory must is compared FIRST.
-
+  const itemsToDisplay = itemList.filter((item) => {
+    if(selectedCategory === "All") { //The selectedCategory is compared FIRST.
+      // setItemList(items);
+      return true;
+    }
+    
     return item.category === selectedCategory;
   }).filter((item) => {
     if(search === "") return true; //search is compared AFTER selectedCategory.
@@ -58,7 +63,7 @@ function ShoppingList({items}){
       onItemFormSubmit={handleItemFormSubmit} onItemName={handleItemName} onItemCategory={handleItemCategory} />
       <Filter onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} search={search}/>
       <ul className="Items">
-        {itemsToDisplay.map((item) => (
+        {itemsToDisplay.map((item) => ( //Map not JUST the original items, but also those added!
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
