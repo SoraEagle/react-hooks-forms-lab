@@ -1,36 +1,32 @@
 import React, {useState} from "react";
 import {v4 as uuid} from "uuid";
 
-function ItemForm({items, setItemList}){
+function ItemForm({items, setItemList, onItemFormSubmit}){
   const [itemName, setItemName] = useState("");
   const [itemCategory, setItemCategory] = useState("Produce");
 
-  function onItemName(event){ //Handles newItem.itemName.
+  const newItem = { //Object for creating new items.
+    id: uuid(),
+    name: itemName,
+    category: itemCategory,
+  };
+
+  function onItemName(event){
     setItemName(event.target.value);
   }
-  function onItemCategory(event){ //Handles newItem.itemCategory.
+  function onItemCategory(event){
     setItemCategory(event.target.value);
   }
 
-  function onItemFormSubmit(event){ //CURRENT Problem Area!!!
+  function addItem(event){
     event.preventDefault();
-    
-    const newItem = { //Object for creating new items.
-      id: uuid(),
-      name: itemName,
-      category: itemCategory,
-    };
-    
-    const itemArray = ([...items, newItem]);
-    console.log(newItem);
-    // console.log(itemArray);
-    setItemList(itemArray);
+    onItemFormSubmit(newItem);
     setItemName("");
     setItemCategory("");
   }
 
   return(
-    <form className="NewItem" onSubmit={onItemFormSubmit} > {/* MUST invoke onItemFormSubmit */}
+    <form className="NewItem" onSubmit={addItem} > {/* MUST invoke onItemFormSubmit, which invokes addItem */}
       <label>
         Name:
         <input type="text" name="name" onChange={onItemName} value={itemName} />
