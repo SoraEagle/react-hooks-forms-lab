@@ -1,10 +1,10 @@
 import React from "react";
 
-function Filter(props){
+function Filter({onSearchChange, search, onCategoryChange}){
   return(
     <div className="Filter">
-      <input type="text" name="search" placeholder="Search..." onChange={props.onSearchChange} value={props.search} /> {/* Connected state to input field */}
-      <select name="filter" onChange={props.onCategoryChange}>
+      <input type="text" name="search" placeholder="Search..." onChange={onSearchChange} value={search} /> {/* Connected state to input field */}
+      <select name="filter" onChange={onCategoryChange}>
         <option value="All">Filter by category</option>
         <option value="Produce">Produce</option>
         <option value="Dairy">Dairy</option>
@@ -15,7 +15,3 @@ function Filter(props){
 }
 
 export default Filter;
-
-// To Do:
-// Use state value to determine which items are being displayed...
-// Update the <select> element to be a controlled input (optional)
