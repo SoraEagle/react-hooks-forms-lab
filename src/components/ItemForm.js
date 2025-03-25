@@ -1,44 +1,42 @@
 import React, {useState} from "react";
 import {v4 as uuid} from "uuid";
 
-function ItemForm({items, setItemList}){
-  const [itemName, setItemName] = useState("");
-  const [itemCategory, setItemCategory] = useState("Produce");
+function ItemForm({onItemFormSubmit}){
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("Produce");
 
-  function onItemName(event){ //Handles newItem.itemName.
-    setItemName(event.target.value);
+  function handleNameChange(event){
+    setName(event.target.value);
   }
-  function onItemCategory(event){ //Handles newItem.itemCategory.
-    setItemCategory(event.target.value);
+  function handleCategoryChange(event){
+    setCategory(event.target.value);
   }
 
-  function onItemFormSubmit(event){ //CURRENT Problem Area!!!
+  function handleSubmit(event){ //CURRENT Problem Area!!!
     event.preventDefault();
-    
-    const newItem = { //Object for creating new items.
+
+    onItemFormSubmit({
       id: uuid(),
-      name: itemName,
-      category: itemCategory,
-    };
-    
-    const itemArray = ([...items, newItem]);
-    console.log(newItem);
-    // console.log(itemArray);
-    setItemList(itemArray);
-    setItemName("");
-    setItemCategory("");
+      name,
+      category
+    });
   }
 
   return(
-    <form className="NewItem" onSubmit={onItemFormSubmit} > {/* MUST invoke onItemFormSubmit */}
+    <form className="NewItem" onSubmit={handleSubmit} >
       <label>
         Name:
-        <input type="text" name="name" onChange={onItemName} value={itemName} />
+        <input 
+          type="text" name="name" 
+          onChange={handleNameChange} value={name} 
+        />
       </label>
 
       <label>
         Category:
-        <select name="category" onChange={onItemCategory} value={itemCategory} >
+        <select 
+          name="category" onChange={handleCategoryChange} value={category} 
+        >
           <option value="Produce">Produce</option>
           <option value="Dairy">Dairy</option>
           <option value="Dessert">Dessert</option>
